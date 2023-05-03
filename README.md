@@ -1,0 +1,6 @@
+# Custom-tkinter-LOGIN-UI
+I have created a login UI which has register and login page in custom tkinter
+Created by Dreaming Moonlight, everybutton is programmed and works, still is progress. No copies orginial handwritten code.
+Users can't blame that code was copied from else where because it was written from scratch and also have a recording as proff.
+
+Hope you enjoy and have a great day :D
