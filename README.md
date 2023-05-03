@@ -5,7 +5,7 @@ Users can't blame that code was copied from else where because it was written fr
 
 There are indeed a bit bugs in the program, where I would try to fix it, this is the first version so bugs are expected.
 
-Hope you enjoy and have a great day :D
+Hope you enjoy and have a great day, requested to share some ideas and fixes if interested.
 
 Regards,
 Dreaming moonlight
