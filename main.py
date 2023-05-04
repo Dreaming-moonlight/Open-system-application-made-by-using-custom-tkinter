@@ -1,20 +1,32 @@
 import customtkinter as ctk
 import tkinter.messagebox as tkmb
+import os
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
 
 admin_username = ["admin1", "admin2", "admin3", "admin4"]
-admin_password = ["development_process"]
+admin_password = ["admin"]
 
+print("-------------------------------------------------------------------------------")
+
+print("-------------------------------INSTRUCTIONS------------------------------------")
 print("#If you are a admin login here, if you are just a user then double enter click")
 print("#After registration enter data in the list given in the code in line 13 and 14")
+print("#If you are a admin and want to login as a user click the close button on the top right corner of the GUI")
+
+print("-------------------------------------------------------------------------------")
 
 username_admin = input("Enter admin username: ")
 userpass_admin = input("Enter admin password: ")
 
 users = ["Tejesh"]
 password = ['1234']
+
+
+def getFolderPath():
+    os.startfile("D:\Tejesh Folder\Tejesh folder\wallpaper\Scenary")
+
 
 if username_admin in admin_username and userpass_admin in admin_password:
 
@@ -26,6 +38,18 @@ if username_admin in admin_username and userpass_admin in admin_password:
 
     frame_admin = ctk.CTkFrame(master=new_page)
     frame_admin.grid(pady=20, padx=40)
+
+    label_admin = ctk.CTkLabel(frame_admin, text="Welcome Admin")
+    label_admin.grid(pady=20, padx=10)
+
+    ask_admin = ctk.CTkLabel(frame_admin, text="Want to view some nature images?")
+    ask_admin.grid(pady=20, padx=10)
+
+    info = ctk.CTkLabel(frame_admin, text="#Hit exit button to end process correctly")
+    info.grid(pady=20, padx=10)
+
+    button = ctk.CTkButton(frame_admin, text="View images", command=getFolderPath)
+    button.grid(pady=20, padx=10)
 
     exit_button = ctk.CTkButton(frame_admin, text="Exit", command=lambda:{exit()})
     exit_button.grid(pady=20, padx=10)
@@ -98,7 +122,7 @@ def register():
 
         reg_page = ctk.CTkToplevel(register_page)
 
-        reg_page.title("Registered successfully")
+        reg_page.title("Review page")
 
         reg_page.geometry("500x500")
 
@@ -158,25 +182,33 @@ def register():
     register_btn.grid(pady=20, padx=10)
 
 def submit():
-    submit_page = ctk.CTkToplevel(window)
 
-    submit_page.title("Authentication")
-
-    submit_page.geometry("500x500")
-
-    if login_entry.get() == username_admin or users and password_entry.get() == userpass_admin or password and conform_password.get() == userpass_admin or password:
+    if login_entry.get() in users and password_entry.get() in password and conform_password.get() in password:
         tkmb.showinfo(title="Login granted", message="You are authorized")
-        label_submit_page = ctk.CTkLabel(submit_page, text="LOGGED IN")
+
+        submit_page = ctk.CTkToplevel(window)
+
+        submit_page.title("Authentication")
+
+        submit_page.geometry("500x500")
+
+        frame = ctk.CTkFrame(master=submit_page)
+        frame.grid(pady=20, padx=40)
+
+        label_submit_page = ctk.CTkLabel(frame, text="Logged in as user")
         label_submit_page.grid(pady=20, padx=10)
 
-    elif login_entry.get() != username_admin and password_entry.get() == userpass_admin and conform_password.get() == userpass_admin:
+    elif login_entry.get() not in users and password_entry.get() in password and conform_password.get() in password:
         tkmb.showerror("Error", "Login is wrong")
 
-    elif login_entry.get() == username_admin and password_entry.get() != userpass_admin and conform_password.get() != userpass_admin:
+    elif login_entry.get() in users and password_entry.get() not in password and conform_password.get() not in password:
         tkmb.showerror("Error", "Password is wrong")
 
-    elif login_entry.get() == username_admin and password_entry.get() == userpass_admin and conform_password.get() != userpass_admin:
+    elif login_entry.get() in users and password_entry.get() in password and conform_password.get() not in password:
         tkmb.showerror("Error", "Conformation password was entered incorrectly")
+
+    elif login_entry.get() == "" and password_entry.get() == "" and conform_password.get() == "":
+        tkmb.showerror("Error", "All details are blank")
 
 
 window = ctk.CTk()
