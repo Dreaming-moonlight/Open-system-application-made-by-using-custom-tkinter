@@ -11,7 +11,7 @@ admin_password = ["admin"]
 print("-------------------------------------------------------------------------------")
 
 print("-------------------------------INSTRUCTIONS------------------------------------")
-print("#If you are a admin login here, if you are just a user then double enter click")
+print("#If you are a admin login here, if you are just a user then double click on enter key")
 print("#After registration enter data in the list given in the code in line 13 and 14")
 print("#If you are a admin and want to login as a user click the close button on the top right corner of the GUI")
 
