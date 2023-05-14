@@ -1,13 +1,16 @@
 import customtkinter as ctk
 import tkinter.messagebox as tkmb
 import os
-from PIL import Image
+from tkinter import filedialog
+from tkinter import *
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
 
 admin_username = ["admin1", "admin2", "admin3", "admin4"]
 admin_password = ["admin"]
+
+ID_set = ["21380", "01238", "12341", "12398"]
 
 print("-------------------------------------------------------------------------------")
 
@@ -18,11 +21,14 @@ print("#If you are a admin and want to login as a user click the close button on
 
 print("-------------------------------------------------------------------------------")
 
+
 username_admin = input("Enter admin username: ")
 userpass_admin = input("Enter admin password: ")
 
+
 users = ["Tejesh", "Common user"]
 password = ['1234', "4321"]
+
 
 def getFolderPath():
     os.startfile("D:\Tejesh Folder\Tejesh folder\wallpaper\Scenary")
@@ -31,6 +37,28 @@ def getFolderPath():
 if username_admin in admin_username and userpass_admin in admin_password:
 
     def admin_review_page():
+
+            def submit():
+
+                if write_something.get() == "Select":
+                    tkmb.showerror("Error", "Please select which admin you are")
+
+                elif write_something.get() == "Admin1" or "Admin2" or "Admin3" or "Admin4":
+
+                    submitted_page = ctk.CTk()
+
+                    submitted_page.title("Submitted review")
+
+                    submitted_page.geometry('400x400')
+
+                    frame7 = ctk.CTkFrame(master=submitted_page)
+                    frame7.pack(pady=40, padx=20, fill='both', expand=True)
+
+                    Label_submitted_page = ctk.CTkLabel(frame7, text="Submitted your review successfully")
+                    Label_submitted_page.pack(pady=20, padx=10)
+
+                    submitted_page.mainloop()
+
 
             new_page = ctk.CTk()
             new_page.title("Logged in as admin")
@@ -44,7 +72,7 @@ if username_admin in admin_username and userpass_admin in admin_password:
             label_say_admin.pack(pady=20, padx=10)
 
             write_something = ctk.CTkOptionMenu(admin_area_frame,
-                                                values=["Admin1", "Admin2", "Admin3", "Admin4"])
+                                                values=["Select", "Admin1", "Admin2", "Admin3", "Admin4"])
             write_something.pack(pady=20, padx=10)
 
             scroll_bar = ctk.CTkProgressBar(master=admin_area_frame)
@@ -89,38 +117,76 @@ if username_admin in admin_username and userpass_admin in admin_password:
             new_page.mainloop()
 
 
-    def submit():
+    def check_btn():
+        if manage_users.get() in ID_set:
+            verification_window = ctk.CTkToplevel(workspace)
 
-        submitted_page = ctk.CTk()
+            verification_window.title("Verified")
 
-        submitted_page.title("Submitted review")
+            verification_window.geometry('300x300')
 
-        submitted_page.geometry('400x400')
+            new_frame_2 = ctk.CTkFrame(master=verification_window)
+            new_frame_2.pack(pady=40, padx=20, fill='both', expand=True)
 
-        frame7 = ctk.CTkFrame(master=submitted_page)
-        frame7.pack(pady=40, padx=20, fill='both', expand=True)
+            label8 = ctk.CTkLabel(new_frame_2, text="Verified exit window")
+            label8.pack(pady=20, padx=10)
 
-        Label_submitted_page = ctk.CTkLabel(frame7, text="Submitted your review successfully")
-        Label_submitted_page.pack(pady=20, padx=10)
+            verification_window.mainloop()
 
-        submitted_page.mainloop()
+        elif manage_users.get() == "":
+            tkmb.showerror("Error", "Enter admin ID")
 
+        elif manage_users.get() not in ID_set:
+            tkmb.showerror("Error", "Invalid admin ID")
+
+    def open_notepad():
+        os.system('C:/Windows/System32/notepad.exe')
+
+    def open_performance_monitor():
+        os.system('C:/WINDOWS/system32/perfmon.exe')
+
+    def clean_disk():
+        os.system('C:/WINDOWS/system32/cleanmgr.exe')
 
     workspace = ctk.CTk()
 
     workspace.title("Admin main workspace")
 
-    workspace.geometry('600x700')
+    workspace.geometry('600x800')
 
     workspace_frame = ctk.CTkFrame(master=workspace)
-    workspace_frame.pack(pady=20, padx=40, fill='both', expand=True)
+    workspace_frame.pack(pady=40, padx=20, fill='both', expand=True)
 
-    Image = ctk.CTkImage(dark_image=Image.open("D:\icon.png"))
-
-    button_review = ctk.CTkButton(workspace_frame, text="Found bug?, send review to developer", command=admin_review_page, image=Image)
+    button_review = ctk.CTkButton(workspace_frame, text="Found bug?, send review to developer", command=admin_review_page)
     button_review.pack(pady=20, padx=10)
 
-    close_btn = ctk.CTkButton(workspace_frame, text="Close workspace", command=lambda:{[exit()]})
+    title = ctk.CTkLabel(workspace_frame, text="Type ID for verification")
+    title.pack(pady=20, padx=10)
+
+    manage_users = ctk.CTkEntry(workspace_frame, placeholder_text="Enter ID")
+    manage_users.pack(pady=20, padx=10)
+
+    check_button = ctk.CTkButton(workspace_frame, text="Check validity", command=check_btn)
+    check_button.pack(pady=20, padx=10)
+
+    btn_photoshop = ctk.CTkButton(workspace_frame, text="Open notepad", command=open_notepad)
+    btn_photoshop.pack(pady=20, padx=10)
+
+    title_2 = ctk.CTkLabel(workspace_frame, text="CHECK SYSTEM")
+    title_2.pack()
+
+    new_frame = ctk.CTkFrame(master=workspace_frame)
+    new_frame.pack(pady=40, padx=20, fill='both', expand=True)
+
+    btn_editor = ctk.CTkButton(new_frame, text="Open performance monitor", command=open_performance_monitor)
+    btn_editor.pack(pady=20, padx=10)
+    btn_editor.place(x=35, y=20)
+
+    btn_clean_disk = ctk.CTkButton(new_frame, text="Clean disk", command=clean_disk)
+    btn_clean_disk.pack(pady=20, padx=10)
+    btn_clean_disk.place(x=310, y=20)
+
+    close_btn = ctk.CTkButton(workspace_frame, text="Close workspace", fg_color="black", command=lambda:{[exit()]})
     close_btn.pack(pady=20, padx=10)
 
     workspace.mainloop()
@@ -256,17 +322,39 @@ def submit():
     if login_entry.get() in users and password_entry.get() in password and conform_password.get() in password:
         tkmb.showinfo(title="Login granted", message="You are authorized")
 
-        submit_page = ctk.CTkToplevel(window)
+        def open_performance_monitor2():
+            os.system('C:/WINDOWS/system32/perfmon.exe')
 
-        submit_page.title("Authentication")
+        def clean_disk2():
+            os.system('C:/WINDOWS/system32/cleanmgr.exe')
 
-        submit_page.geometry("500x500")
+        workspace2 = ctk.CTk()
 
-        frame = ctk.CTkFrame(master=submit_page)
-        frame.pack(pady=20, padx=40)
+        workspace2.title("User main workspace")
 
-        label_submit_page = ctk.CTkLabel(frame, text="Logged in as user")
-        label_submit_page.pack(pady=20, padx=10)
+        workspace2.geometry('600x800')
+
+        workspace_frame = ctk.CTkFrame(master=workspace2)
+        workspace_frame.pack(pady=40, padx=20, fill='both', expand=True)
+
+        title_2 = ctk.CTkLabel(workspace_frame, text="CHECK SYSTEM")
+        title_2.pack()
+
+        new_frame = ctk.CTkFrame(master=workspace_frame)
+        new_frame.pack(pady=40, padx=20, fill='both', expand=True)
+
+        btn_editor = ctk.CTkButton(new_frame, text="Open performance monitor", command=open_performance_monitor2)
+        btn_editor.pack(pady=20, padx=10)
+        btn_editor.place(x=35, y=20)
+
+        btn_clean_disk = ctk.CTkButton(new_frame, text="Clean disk", command=clean_disk2)
+        btn_clean_disk.pack(pady=20, padx=10)
+        btn_clean_disk.place(x=310, y=20)
+
+        close_btn = ctk.CTkButton(workspace_frame, text="Close workspace", fg_color="black", command=lambda: {[exit()]})
+        close_btn.pack(pady=20, padx=10)
+
+        workspace2.mainloop()
 
     elif login_entry.get() not in users and password_entry.get() in password and conform_password.get() in password:
         tkmb.showerror("Error", "Login is wrong")
