@@ -158,11 +158,19 @@ if username_admin in admin_username and userpass_admin in admin_password:
         tkmb.showinfo("Warning", "After finishing close application before performing any other task.")
         os.system('C:/WINDOWS/system32/eventvwr.msc')
 
+    def Open_cmd():
+        tkmb.showinfo("Warning", "After finishing close application before performing any other task.")
+        os.system('C:/WINDOWS/system32/control.exe')
+
+    def open_powershell():
+        tkmb.showinfo("Warning", "After finishing close application before performing any other task.")
+        os.system('C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe')
+
     workspace = ctk.CTk()
 
     workspace.title("Admin main workspace")
 
-    workspace.geometry('600x900')
+    workspace.geometry('700x900')
 
     workspace_frame = ctk.CTkFrame(master=workspace)
     workspace_frame.pack(pady=40, padx=20, fill='both', expand=True)
@@ -188,6 +196,9 @@ if username_admin in admin_username and userpass_admin in admin_password:
     title_3 = ctk.CTkLabel(workspace_frame, text="WINDOWS(ONLY)")
     title_3.pack()
 
+    title_4 = ctk.CTkLabel(workspace_frame, text="#If you are using pycharm and want to exit powershell type exit in terminal, or you can type your commands.")
+    title_4.pack()
+
     new_frame = ctk.CTkFrame(master=workspace_frame)
     new_frame.pack(pady=40, padx=20, fill='both', expand=True)
 
@@ -197,7 +208,7 @@ if username_admin in admin_username and userpass_admin in admin_password:
 
     btn_clean_disk = ctk.CTkButton(new_frame, text="Clean disk", command=clean_disk)
     btn_clean_disk.pack(pady=20, padx=10)
-    btn_clean_disk.place(x=310, y=20)
+    btn_clean_disk.place(x=440, y=20)
 
     computer_management = ctk.CTkButton(new_frame, text="Open computer management", command=computer_management)
     computer_management.pack(pady=20, padx=10)
@@ -205,7 +216,15 @@ if username_admin in admin_username and userpass_admin in admin_password:
 
     Open_Math_board = ctk.CTkButton(new_frame, text="Open Event viewer", command=Open_Math_board)
     Open_Math_board.pack(pady=20, padx=10)
-    Open_Math_board.place(x=310, y=80)
+    Open_Math_board.place(x=440, y=80)
+
+    open_CMD = ctk.CTkButton(new_frame, text="Open control panel", command=Open_cmd)
+    open_CMD.pack(pady=20, padx=10)
+    open_CMD.place(x=35, y=140)
+
+    open_powershell = ctk.CTkButton(new_frame, text="Open powershell 64 bit", command=open_powershell)
+    open_powershell.pack(pady=20, padx=10)
+    open_powershell.place(x=440, y=140)
 
     close_btn = ctk.CTkButton(workspace_frame, text="Close workspace", fg_color="black", command=lambda:{[exit()]})
     close_btn.pack(pady=20, padx=10)
@@ -340,13 +359,15 @@ def register():
 
 def submit():
 
-    if login_entry.get() in users and password_entry.get() in password and conform_password.get() in password:
+    if login_entry.get() in users and password_entry.get() in password and conform_password.get() == password_entry.get():
         tkmb.showinfo(title="Login granted", message="You are authorized")
 
         def open_performance_monitor2():
+            tkmb.showinfo("Warning", "After finishing close application before performing any other task.")
             os.system('C:/WINDOWS/system32/perfmon.exe')
 
         def clean_disk2():
+            tkmb.showinfo("Warning", "After finishing close application before performing any other task.")
             os.system('C:/WINDOWS/system32/cleanmgr.exe')
 
         workspace2 = ctk.CTk()
@@ -377,17 +398,17 @@ def submit():
 
         workspace2.mainloop()
 
-    elif login_entry.get() not in users and password_entry.get() in password and conform_password.get() in password:
-        tkmb.showerror("Error", "Login is wrong")
+    elif login_entry.get() in users and password_entry.get() in password and conform_password.get() != password_entry.get():
+        tkmb.showerror("Error", "Incorrect conform password")
 
-    elif login_entry.get() in users and password_entry.get() not in password and conform_password.get() not in password:
-        tkmb.showerror("Error", "Password is wrong")
+    elif login_entry.get() not in users and password_entry.get() in password and conform_password.get() == password_entry.get():
+        tkmb.showerror("Error", "Incorrect username")
 
-    elif login_entry.get() in users and password_entry.get() in password and conform_password.get() not in password:
-        tkmb.showerror("Error", "Conformation password was entered incorrectly")
+    elif login_entry.get() in users and password_entry.get() not in password and conform_password.get() == password_entry.get():
+        tkmb.showerror("Error", "Incorrect password")
 
-    elif login_entry.get() == "" and password_entry.get() == "" and conform_password.get() == "":
-        tkmb.showerror("Error", "All details are blank")
+    elif login_entry.get() not in users and password_entry.get() not in password and conform_password.get() == password_entry.get():
+        tkmb.showerror("Error", "Incorrect username and password")
 
 
 window = ctk.CTk()
